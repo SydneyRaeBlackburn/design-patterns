@@ -6,6 +6,7 @@ All examples are written in Go and the markdown utilizes [Mermaid](https://merma
 ## Requirements
 - [Go](https://go.dev/dl/)
 - [Mermaid](https://mermaid-js.github.io/mermaid/#/README?id=installation)
+- [GitHub + Mermaid](https://chrome.google.com/webstore/detail/github-%2B-mermaid/goiiopgdnkogdbjmncgedmgpoajilohe/related?hl=en) Chrome extension to view Mermaid diagrams in GitHub
 
 ## References
 - [Refactoring Guru](https://refactoring.guru/design-patterns)
