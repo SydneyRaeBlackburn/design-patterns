@@ -8,6 +8,8 @@ type QuackBehavior interface {
 	Quack()
 }
 
+// different implementations
+
 type MuteDuck struct {
 	QuackBehavior
 }
@@ -15,6 +17,8 @@ type MuteDuck struct {
 type Squeak struct {
 	QuackBehavior
 }
+
+// execution methods
 
 func (md *MuteDuck) Quack() {
 	fmt.Println("<< Silence >>")

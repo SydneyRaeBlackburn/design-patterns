@@ -16,24 +16,28 @@ func main() {
 
 	fmt.Println()
 
-	fmt.Println("Rubber Duck:")
+	// can set the behavior for different kinds of ducks at runtime
+	fmt.Println("Rubber Duck (initial):")
 	rubberDuck := b.NewDuck(nil, nil)
-	rubberDuck.SetFlyBehavior(&b.FlyNoWay{})
-	rubberDuck.SetQuackBehvaior(&b.Squeak{})
 	rubberDuck.Display()
 
 	fmt.Println()
 
-	fmt.Println("Flying Duck:")
-
-	flyingDuck := b.NewDuck(nil, nil)
-	flyingDuck.SetFlyBehavior(&b.FlyWithWings{})
-	flyingDuck.Display()
+	var flyBehavior string
+	fmt.Println("Set the rubber duck's flying behavior (type none):  ")
+	fmt.Scanln(&flyBehavior)
+	if flyBehavior == "none" {
+		rubberDuck.SetFlyBehavior(&b.FlyNoWay{})
+	}
+	var quackBehavior string
+	fmt.Println("Set the rubber duck's flying behavior (type squeak):  ")
+	fmt.Scanln(&quackBehavior)
+	if quackBehavior == "squeak" {
+		rubberDuck.SetQuackBehvaior(&b.Squeak{})
+	}
 
 	fmt.Println()
 
-	fmt.Println("Rocket Duck:")
-	rocketDuck := b.NewDuck(nil, nil)
-	rocketDuck.SetFlyBehavior(&b.FlyWithRocket{})
-	rocketDuck.Display()
+	fmt.Println("Rubber Duck (updated):")
+	rubberDuck.Display()
 }

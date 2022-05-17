@@ -8,6 +8,8 @@ type FlyBehavior interface {
 	Fly()
 }
 
+// different implementations
+
 type FlyWithWings struct {
 	FlyBehavior
 }
@@ -19,6 +21,8 @@ type FlyNoWay struct {
 type FlyWithRocket struct {
 	FlyBehavior
 }
+
+// execution methods
 
 func (fww *FlyWithWings) Fly() {
 	fmt.Println("I'm flying with wings!!")

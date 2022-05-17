@@ -2,7 +2,7 @@ package behavior
 
 import "fmt"
 
-//main interface defines what all Ducks have in common (strategy)
+// DuckBehavior interface defines what all Ducks have in common (strategy)
 type DuckBehavior interface {
 	Swim()
 	Display()
@@ -10,14 +10,14 @@ type DuckBehavior interface {
 	QuackBehavior
 }
 
-// Define duck (context)
+// Define duck (context/class)
 type Duck struct {
 	DuckBehavior  DuckBehavior
 	FlyBehavior   FlyBehavior
 	QuackBehavior QuackBehavior
 }
 
-// Declare a new kind of duck
+// Declare a new duck
 func NewDuck(fb FlyBehavior, qb QuackBehavior) *Duck {
 	return &Duck{
 		FlyBehavior:   fb,
@@ -54,6 +54,8 @@ func (d *Duck) fly() {
 func (d *Duck) quack() {
 	fmt.Println("Quack!!")
 }
+
+// setter methods
 
 func (d *Duck) SetFlyBehavior(fb FlyBehavior) *Duck {
 	d.FlyBehavior = fb
