@@ -53,11 +53,11 @@ classDiagram
 - When some objects in your app must observe others, but only for a limited time or in specific cases
 
 ## Pros
-- _Open/Closed Principle_. You can introduce new subscriber classes without having to change the publisher's code (and vice verse if there's publisher's code)
+- _Open/Closed Principle_. You can introduce new observer classes without having to change the subject's code (and vice versa)
 - You can establish relations between objects at runtime
 
 ## Cons
-- Subscribers are notified in random order
+- Observers are notified in random order
 
 ## References
 - https://refactoring.guru/design-patterns/observer
