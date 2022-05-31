@@ -1,5 +1,7 @@
 package main
 
+import "math/rand"
+
 type Weatherdata interface {
 	MeasurementsChanged()
 	getTemperature()
@@ -13,11 +15,11 @@ type WeatherData struct {
 	Pressure float32
 }
 
-func NewWeatherData(temp float32, humidity float32, pressure float32) *WeatherData {
+func NewWeatherData() *WeatherData {
 	return &WeatherData{
-		Temp:     temp,
-		Humidity: humidity,
-		Pressure: pressure,
+		Temp:     getTemperature(),
+		Humidity: getHumidity(),
+		Pressure: getPressure(),
 	}
 }
 
@@ -34,13 +36,13 @@ func (wd *WeatherData) MeasurementsChanged() *WeatherData {
 }
 
 func getTemperature() float32 {
-	return 73.3
+	return float32(rand.Intn(50)+50) + rand.Float32()
 }
 
 func getHumidity() float32 {
-	return .61
+	return rand.Float32()
 }
 
 func getPressure() float32 {
-	return 29.93
+	return float32(rand.Intn(25)+25) + rand.Float32()
 }
