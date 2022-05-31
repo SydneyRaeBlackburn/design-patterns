@@ -6,43 +6,47 @@ Defines a one-to-many dependency between objects so that when one object changes
 
 ```mermaid
 classDiagram
-    Publisher o..> Subscriber
-    Publisher <-- Client
-    Subscriber <|.. Concrete_Subscribers: implements
-    Concrete_Subscribers <.. Client
-    direction LR
-    class Publisher{
-        -subscriber: Subscriber[]
+    Observer "1..many" <|-- Subject: observers
+    ConcreteObserver ..> Observer: implements
+    ConcreteObserver --|> ConcreteSubject: subject
+    ConcreteSubject ..> Subject: implements
+    direction BT
+    class Subject{
+        <<interface>>
+        -observers: Observer[]
         -mainState
-        +subscribe(s: Subscriber)
-        +unsubscribe(s: Subscriber)
-        +notifySubscribers()
-        +mainBusinessLogic()
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
     }
-    class Subscriber{
+    class Observer{
         <<interface>>
         +update(context)
     }
-    class Concrete_Subscribers{
-        ...
+    class ConcreteObserver{
         +update(context)
+        ... //other Observer specific methods
     }
-    class Client{
-
+    class ConcreteSubject{
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
+        +getState()
+        +setState()
     }
 ```
 
-1. The **Publisher** issues events of interest to other objects. There events occur when the publisher changes its state or executes some behaviors. Publishers contain a subscription infrastructure that lets new subscribers join and current subscribers leave the list.
+1. The **Subject** interface allows objects to register as observers and also remove themselves from being observers.
 
-2. When a new event happens, the publisher goes over the subscription list and calls the notification method declared in the subscriber interface on each subscriber object.
+2. Each **Subject** can have many **Observers**.
 
-3. The **Subscriber** interface declares the notification interface. In most cases, it consists of a single `update` method. The method may have several parameters that let the publisher pass some event details along with the update.
+3. All potential observers need to implement the **Observer** interface. This interface has just one method, `update()`, that is called when the **Subject's** state changes.
 
-4. **Concrete Subscribers** perform some actions in response to notifications issued by the publisher. All of these classes must implement the same interface so the publisher isn't coupled to concrete classes.
+4. **Concrete Observers** can be any class that implements the **Observer** interface.
 
-5. Usually, subscribers need some contextual information to handle the update correctly. For this reason, publishers often pass some context data as arguments of the notification method. The publisher can pass itself as an argument, letting the subscriber fetch any required data directly.
+5. The **Concrete Subject** may also have methods for setting and getting its state.
 
-6. The **Client** creates publisher and subscriber objects separately and then registers subscribers for publisher updates.
+6. A **Concrete Subject** always implements the **Subject** interface. In addition to the register and remove methods, the concrete subject implements a `notifyObservers()` method that is used to update all the current observers whenever state changes.
 
 ## Applicability
 - When changes to the state of one object may require changing other objects, and the actual set of objects is unknown beforehand or changes dynamically
