@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	b "main/behavior"
+	b "strategy/behavior"
 )
 
 // client

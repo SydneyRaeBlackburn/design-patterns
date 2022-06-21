@@ -1,3 +1,3 @@
-module github.com/SydneyRaeBlackburn/design-patterns/strategy
+module strategy
 
 go 1.17
