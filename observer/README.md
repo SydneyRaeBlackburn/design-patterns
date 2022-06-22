@@ -13,8 +13,6 @@ classDiagram
     direction BT
     class Subject{
         <<interface>>
-        -observers: Observer[]
-        -mainState
         +registerObserver()
         +removeObserver()
         +notifyObservers()
@@ -25,9 +23,11 @@ classDiagram
     }
     class ConcreteObserver{
         +update(context)
-        ... //other Observer specific methods
+        +otherMethods()
     }
     class ConcreteSubject{
+        -observers: Observer[]
+        -mainState
         +registerObserver()
         +removeObserver()
         +notifyObservers()
