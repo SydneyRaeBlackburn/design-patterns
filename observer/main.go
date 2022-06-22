@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
-	o "observer/observer"
-	s "observer/subject"
+	"observer/observers/weatherData"
+	s "observer/subjects"
 )
 
 func main() {
 	weatherDataSubject := s.NewWeatherData()
-	currentConditionDisplayObserver := o.NewCurrentConditionDisplay(0.0, 0.0, 0.0)
-	forecastDisplay := o.NewForecastDisplay(0.0, 0.0)
-	statisticsDisplay := o.NewStatisticsDisplay(0.0, 0.0, 0.0, 0)
-	heatIndexDisplay := o.NewHeatIndexDisplay(0.0)
+	currentConditionDisplayObserver := weatherData.NewCurrentConditionDisplay(weatherDataSubject)
+	forecastDisplay := weatherData.NewForecastDisplay(weatherDataSubject)
+	statisticsDisplay := weatherData.NewStatisticsDisplay(weatherDataSubject)
+	heatIndexDisplay := weatherData.NewHeatIndexDisplay(weatherDataSubject)
 
 	weatherDataSubject.RegisterObserver(currentConditionDisplayObserver)
 	weatherDataSubject.RegisterObserver(forecastDisplay)
@@ -20,10 +20,13 @@ func main() {
 
 	fmt.Println()
 
+	weatherDataSubject.NotifyObservers()
+
+	fmt.Println()
+
 	weatherDataSubject.SetMeasurements()
 
 	fmt.Println()
 
 	weatherDataSubject.RemoveObserver(heatIndexDisplay)
-	weatherDataSubject.SetMeasurements()
 }

@@ -1,31 +1,33 @@
-package observer
+package weatherData
 
-import "fmt"
+import (
+	"fmt"
+	"observer/core"
+	s "observer/subjects"
+)
 
 type ForecastDisplay interface {
-	Observer
-	DisplayElement
+	core.Observer
+	core.Display
 }
 
 type forecastDisplay struct {
-	Observer        Observer
-	DisplayElement  DisplayElement
+	Subject         s.WeatherData
 	currentPressure float32
 	lastPressure    float32
 }
 
-func NewForecastDisplay(currentPressure float32, lastPressure float32) ForecastDisplay {
+func NewForecastDisplay(subject s.WeatherData) ForecastDisplay {
 	return &forecastDisplay{
-		Observer:        NewObserver(),
-		DisplayElement:  NewDisplayElement(),
-		currentPressure: currentPressure,
-		lastPressure:    lastPressure,
+		Subject:         subject,
+		currentPressure: subject.GetPressure(),
+		lastPressure:    subject.GetPressure(),
 	}
 }
 
-func (fd *forecastDisplay) Update(_ float32, _ float32, pressure float32) {
+func (fd *forecastDisplay) Update() {
 	fd.lastPressure = fd.currentPressure
-	fd.currentPressure = pressure
+	fd.currentPressure = fd.Subject.GetPressure()
 
 	fd.Display()
 }

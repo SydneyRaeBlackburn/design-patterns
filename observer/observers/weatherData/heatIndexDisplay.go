@@ -1,28 +1,30 @@
-package observer
+package weatherData
 
-import "fmt"
+import (
+	"fmt"
+	"observer/core"
+	s "observer/subjects"
+)
 
 type HeatIndexDisplay interface {
-	Observer
-	DisplayElement
+	core.Observer
+	core.Display
 }
 
 type heatIndexDisplay struct {
-	Observer       Observer
-	DisplayElement DisplayElement
-	heatIndex      float32
+	Subject   s.WeatherData
+	heatIndex float32
 }
 
-func NewHeatIndexDisplay(heatIndex float32) HeatIndexDisplay {
+func NewHeatIndexDisplay(subject s.WeatherData) HeatIndexDisplay {
 	return &heatIndexDisplay{
-		Observer:       NewObserver(),
-		DisplayElement: NewDisplayElement(),
-		heatIndex:      heatIndex,
+		Subject:   subject,
+		heatIndex: computeHeatIndex(subject.GetTemperature(), subject.GetHumidity()),
 	}
 }
 
-func (sd *heatIndexDisplay) Update(temperature float32, humidity float32, _ float32) {
-	sd.heatIndex = computeHeatIndex(temperature, humidity)
+func (sd *heatIndexDisplay) Update() {
+	sd.heatIndex = computeHeatIndex(sd.Subject.GetTemperature(), sd.Subject.GetHumidity())
 
 	sd.Display()
 }
