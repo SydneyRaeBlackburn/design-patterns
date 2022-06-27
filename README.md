@@ -6,6 +6,7 @@ Overview and examples of the various software engineering design patterns. This 
 - Program to an interface, not an implementation.
 - Favor composition over inheritance.
 - Strive for loosely coupled designs between objects that interact. Loosely coupled designs allow us to build flexible OO systems that can handle change because they minimize the interdependency between objects.
+- Open-Closed Principle - classes should be open for extension, but closed for modification.
 
 # Getting Started
 
